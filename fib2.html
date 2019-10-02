@@ -1,0 +1,50 @@
+<!DOCTYPE utf-8>
+<html lang="en">
+	<head>
+	</head>
+	<body>
+		<p>Fibonacci Art(larger)</p>
+        <a href="cb18212.github.io/fib.html">Smaller original work</a>
+		<canvas id="draw" width="300" height="300"></canvas>
+	</body>
+	<script>
+		var canvas = document.getElementById('draw');
+		var ctx = canvas.getContext('2d');
+		var scale = 8;
+		
+		//from internet
+		function fib(num, memo)
+		{
+			memo = memo || {};
+			if (memo[num]) return memo[num];
+			if (num <= 1) return 1;
+			return memo[num] = fib(num - 1, memo) + fib(num - 2, memo);
+		}
+		
+		function rgb(r, g, b)
+		{
+			return "rgb("+r+","+g+","+b+")";
+		}
+		
+		var i;
+		var i2;
+		
+		function outArgb(input2)
+		{
+			while(input2 >= 10)
+			{
+				input2 -= 10;
+			}
+			return input2 * 255/10;
+		}
+		
+		for(i = 0; i < canvas.width/scale; i++)
+		{
+			for(i2 = 0; i2 < canvas.height/scale; i2++)
+			{
+				ctx.fillStyle = rgb(outArgb(fib(i)), outArgb(fib(i2)), outArgb((fib(i)+fib(i2))/2));
+				ctx.fillRect(i*scale,i2*scale,scale,scale);//i, i2, scale, scale);
+			}
+		}
+	</script>
+</html>
